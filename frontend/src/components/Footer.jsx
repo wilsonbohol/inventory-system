@@ -1,0 +1,11 @@
+import React from 'react'
+
+const Footer = () => {
+  return (
+     <footer className="h-12 bg-gray-900 text-white flex items-center justify-center text-sm border-t border-white/10">
+      © 2025 <span className="mx-1 font-semibold text-amber-300">Inventory System</span> | Built with ❤️
+    </footer>
+  )
+}
+
+export default Footer

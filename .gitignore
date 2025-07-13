@@ -1,0 +1,15 @@
+# Frontend ignores
+/frontend/node_modules/
+/frontend/dist/
+/frontend/.env
+
+# Backend ignores
+/backend/node_modules/
+/backend/.env
+
+# Common ignores
+.env
+.env.local
+.DS_Store
+.vscode/
+npm-debug.log*

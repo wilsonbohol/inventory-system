@@ -1,0 +1,21 @@
+NOTES
+-The userId is from the auth
+
+TODO 
+MAKE THE HEADER UPDATE THE CURRENT USER
+
+FETCH ALL USER IN ADMIN PANEEL
+
+EDIT USER INFO
+
+done making the updateusercontroller 
+now make the updateUser function in frontend
+
+done updateUser now make a restriction if the user is not ADMIN
+
+
+make the category capitalize and make it UNIQUE
+
+make a function to display category on frontend
+
+make a updateCategory
