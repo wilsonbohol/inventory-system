@@ -2,7 +2,7 @@ import React from 'react'
 
 const Audit = () => {
   return (
-    <div>Audit</div>
+    <div className='parent-card'>Audit</div>
   )
 }
 

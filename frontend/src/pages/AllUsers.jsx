@@ -13,6 +13,27 @@ const AllUsers = () => {
   //page paginatioon
   const [currentPage, setCurentPage] = useState(1);
   const usersPerPage = 6
+  const handleDeleteUser = async(id)=>{
+    const confirm = window.confirm("Are you sure you want to delelete?")
+    if(!confirm) return
+     const {url, method} = SummaryApi.deleteUser(id)
+    try{
+     const res = await fetch(url,{
+      method,
+      credentials: "include",
+     })
+      const data = await res.json();
+     if(res.ok){
+      toast.success(data.message)
+      fetchAllUsers()
+     }
+     else{
+      toast.error(data.message ||"Failted to Delete user")
+     }
+    }catch(err){
+      toast.error("Server Error")
+    }
+  }
   const fetchAllUsers = async ()=>{
     const fetchData = await fetch(SummaryApi.allUser.url,{
       method: SummaryApi.allUser.method,
@@ -45,7 +66,7 @@ const AllUsers = () => {
     //this is The parent div
     <div className="p-1 ml-2">
   {/**THIS IS the 1st childred and 2nd parent */}
-  <div className="bg-white rounded-md shadow-sm overflow-x-auto">
+  <div className="parent-card">
     <div className="px-4 py-3 border-b border-gray-200">
       <h2 className="text-lg font-semibold text-gray-800">All Users</h2>
     </div>
@@ -124,7 +145,8 @@ const AllUsers = () => {
               }}
             />
           </button>
-          <button className="bg-red-500 hover:bg-red-600 text-white p-2 rounded-full">
+          <button className="bg-red-500 hover:bg-red-600 text-white p-2 rounded-full"
+          onClick={()=>handleDeleteUser(el.id)}>
             <Trash size={16} />
           </button>
         </motion.div>

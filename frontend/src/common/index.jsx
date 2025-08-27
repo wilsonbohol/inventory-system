@@ -1,4 +1,7 @@
-const backendDomain = "http://localhost:8080";
+const isLocal = window.location.hostname === "localhost";
+const backendDomain = isLocal
+  ? "http://localhost:8080"
+  : "http://192.168.100.16:8080";
 
 const SummaryApi = {
     signUp: {
@@ -48,7 +51,22 @@ const SummaryApi = {
     updateProduct:{
         url: `${backendDomain}/api/update-product`,
         method: "post"
-    }
+    },
+    deleteUser: (id) => ({
+  url: `${backendDomain}/api/delete-user/${id}`,
+  method: "delete",
+}),
+deleteCategory: (id) => ({
+  url: `${backendDomain}/api/delete-category/${id}`,
+  method: "delete",
+}),
+
+deleteProduct: (id) =>({
+    url: `${backendDomain}/api/delete-product/${id}`,
+    method: "delete",
+}
+
+)
         
     
 

@@ -31,6 +31,28 @@ const Inventory = () => {
       }
 
   }
+  const handleDeleteCategory = async (id) =>{
+    const confirm = window.confirm("Are you sure you want to delete?")
+    if(!confirm) return;
+    const {url, method} = SummaryApi.deleteCategory(id)
+    try{
+      const res = await fetch(url,{
+        method,
+        credentials: 'include'
+      })
+      const data = await res.json()
+      if(res.ok){
+        toast.success(data.message)
+        fetchAllCategory()
+      }
+      else{        
+        toast.error(data.message)
+      }
+    }catch(err){
+      toast.error("Server Error")
+
+    }
+  }
   useEffect(()=>{
     fetchAllCategory()
     console.log("What is Category", allCategory)
@@ -77,7 +99,9 @@ const Inventory = () => {
                 }}
                 />
               </button>
-              <button className="bg-red-500 hover:bg-red-600 text-white p-2 rounded-full">
+              <button className="bg-red-500 hover:bg-red-600 text-white p-2 rounded-full"
+              onClick={()=>handleDeleteCategory(el.id)}>
+                
                               <Trash size={16} />
               </button>
               <motion.button

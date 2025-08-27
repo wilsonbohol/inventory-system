@@ -9,6 +9,7 @@ import { Delete } from 'lucide-react';
 import AddProductModal from '../components/modal/product/AddProductModal';
 import { AnimatePresence, motion } from 'framer-motion';
 import EditProductModal from '../components/modal/product/EditProductModal';
+import { toast } from 'react-toastify';
 
 function AllProduct() {
     const { slug } = useParams()
@@ -30,6 +31,28 @@ function AllProduct() {
               toast.error(dataResponse.message)
             }
     }
+
+    const handleDeleteProduct = async (id) =>{
+    const confirm = window.confirm("Are you sure you want to delete?")
+    if(!confirm) return
+    const {url, method} = SummaryApi.deleteProduct(id)
+    try{
+      const res = await fetch(url,{
+        method,
+        credentials: "include"
+    })
+    const data = await res.json()
+    if(res.ok){
+      toast.success(data.message)
+      fetchAllProduct()
+    }
+    else{        
+      toast.error(data.message)
+      }
+    }catch(err){
+       toast.error("Server Error")
+    }
+    }
     useEffect(()=>{
         fetchAllProduct()
         
@@ -38,7 +61,7 @@ function AllProduct() {
     <div>
         <div className="p-1 ml-2">
   {/**THIS IS the 1st childred and 2nd parent */}
-  <div className="bg-white rounded-md shadow-sm overflow-x-auto">
+  <div className="parent-card">
     <div className="px-4 py-3 border-b border-gray-200 flex justify-between">
       <h2 className="text-lg font-semibold text-gray-800 capitalize">CATEGORY: {slug}</h2>
       <button className='border rounded-full p-1 px-4 bg-rose-500 text-white hover:bg-rose-600 shadow-md cursor-pointer' onClick={()=>{
@@ -88,7 +111,7 @@ function AllProduct() {
                 
                 />
               </button>
-              <button className="bg-red-500 hover:bg-red-600 text-white p-2 rounded-full">
+              <button className="bg-red-500 hover:bg-red-600 text-white p-2 rounded-full" onClick={()=> handleDeleteProduct(product.id)}>
                 <Delete size={16} />
               </button>
               <button className="bg-blue-500 hover:bg-blue-600 text-white p-1 px-5 rounded-full cursor-pointer">

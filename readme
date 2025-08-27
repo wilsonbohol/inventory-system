@@ -19,3 +19,5 @@ make the category capitalize and make it UNIQUE
 make a function to display category on frontend
 
 make a updateCategory
+
+make delete controller
